@@ -408,10 +408,13 @@ class _StatisticsScreenState extends State<StatisticsScreen> with SingleTickerPr
     switch (name) {
       case '红章':
         return Colors.red.shade600;
+      case '坤如':
       case '坤茹':
         return Colors.indigo.shade600;
-      case '烨文':
+      case '姨':
         return Colors.teal.shade600;
+      case '烨文':
+        return Colors.cyan.shade600;
       case '坤艳':
         return Colors.purple.shade600;
       default:

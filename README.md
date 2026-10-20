@@ -1,6 +1,6 @@
 # 智能记账 (Smart Ledger) 📱
 
-[![Build & Release Android APK](https://github.com/liwo1861a-hub/luhao-ledger/actions/workflows/build-release.yml/badge.svg)](https://github.com/liwo1861a-hub/luhao-ledger/actions/workflows/build-release.yml)
+[![Build & Release Android APK](https://github.com/liwoniu0-sketch/luhao-ledger/actions/workflows/build-release.yml/badge.svg)](https://github.com/liwoniu0-sketch/luhao-ledger/actions/workflows/build-release.yml)
 
 一款专为经营流水与多人日常记账打造的智能记账 Android 手机应用。支持微信群聊记录/手写小票/转账截图 OCR 识别提取、多模态 AI (默认 Google Gemini `gemini-3.7-flash`，可自定义) 智能人名与别名理解、单日总收入与各成员支出自动核算、月度分类报表、累计总览看板、每日特殊情况备注以及全量信息自定义路径备份下载。
 

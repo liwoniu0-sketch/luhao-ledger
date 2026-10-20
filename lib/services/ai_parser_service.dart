@@ -101,14 +101,20 @@ class AiParserService {
 
         double? amount = double.tryParse(amountStr);
         if (amount != null && amount > 0) {
-          String finalName = aliasMap[rawName] ?? rawName;
+          String mapped = aliasMap[rawName] ?? rawName;
+          String finalName = '姨';
+          if (['红章', '爸', '父', '老爸'].contains(mapped)) {
+            finalName = '红章';
+          } else if (['坤如', '坤茹', '妈', '母', '老妈', '我'].contains(mapped)) {
+            finalName = '坤如';
+          }
 
           // 类别统一默认为日常支出，用户在界面中可自由按需下拉切换
           expenseItems.add(ExpenseItem(
             personName: finalName,
             amount: amount,
             category: '日常支出',
-            note: '',
+            note: finalName == '姨' ? '$rawName${amountStr}元' : '',
           ));
         }
       }

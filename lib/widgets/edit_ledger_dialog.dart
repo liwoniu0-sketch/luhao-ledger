@@ -20,7 +20,7 @@ class _EditLedgerDialogState extends State<EditLedgerDialog> {
   late TextEditingController _specialNoteCtrl;
   late List<ExpenseItem> _expenses;
 
-  final List<String> _commonPersons = ['红章', '坤茹', '烨文', '坤艳'];
+  final List<String> _commonPersons = ['红章', '坤如', '姨'];
   final List<String> _commonCategories = ['日常支出', '食材采购', '调料备料', '零星开支', '水电租金', '物料耗材'];
 
   @override

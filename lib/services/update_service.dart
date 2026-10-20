@@ -31,7 +31,7 @@ class UpdateService {
   UpdateService._internal();
 
   final Dio _dio = Dio();
-  final String _repoOwner = 'liwo1861a-hub';
+  final String _repoOwner = 'liwoniu0-sketch';
   final String _repoName = 'luhao-ledger';
 
   /// 读取本地 assets/version.json

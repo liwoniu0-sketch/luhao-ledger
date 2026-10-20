@@ -95,13 +95,15 @@ class CloudflareSyncService {
           }
         }
 
-        List<String> memberNames = ['红章', '坤茹', '烨文'];
+        List<String> memberNames = ['红章', '坤如', '姨'];
         if (monthBlock['memberNames'] is List) {
           final mList = (monthBlock['memberNames'] as List).map((e) => e.toString().trim()).toList();
           if (mList.isNotEmpty) {
             memberNames = mList;
+            if (memberNames.length >= 2 && memberNames[1] == '坤茹') memberNames[1] = '坤如';
+            if (memberNames.length >= 3 && ['烨文', '坤艳'].contains(memberNames[2])) memberNames[2] = '姨';
             while (memberNames.length < 3) {
-              memberNames.add('成员${memberNames.length + 1}');
+              memberNames.add(memberNames.length == 0 ? '红章' : (memberNames.length == 1 ? '坤如' : '姨'));
             }
           }
         }
@@ -148,7 +150,7 @@ class CloudflareSyncService {
             double mAm = _solveFormula(row['m_am']);
             if (mAm > 0) {
               expenses.add(ExpenseItem(
-                personName: memberNames.length > 1 ? memberNames[1] : '坤茹',
+                personName: memberNames.length > 1 ? memberNames[1] : '坤如',
                 amount: mAm,
                 category: (row['m_it'] != null && row['m_it'].toString().trim().isNotEmpty) ? row['m_it'].toString().trim() : '日常支出',
                 note: '',
@@ -158,7 +160,7 @@ class CloudflareSyncService {
             double aAm = _solveFormula(row['a_am']);
             if (aAm > 0) {
               expenses.add(ExpenseItem(
-                personName: memberNames.length > 2 ? memberNames[2] : '烨文',
+                personName: memberNames.length > 2 ? memberNames[2] : '姨',
                 amount: aAm,
                 category: (row['a_it'] != null && row['a_it'].toString().trim().isNotEmpty) ? row['a_it'].toString().trim() : '日常支出',
                 note: '',
@@ -212,17 +214,8 @@ class CloudflareSyncService {
         int month = int.tryParse(parts[1]) ?? DateTime.now().month;
         String monthName = '${year}年${month}月';
 
-        // 收集该月份出现的所有成员
-        Set<String> memberSet = {'红章', '坤茹', '烨文'};
-        for (var r in records) {
-          for (var e in r.expenses) {
-            if (e.personName.isNotEmpty) memberSet.add(e.personName);
-          }
-        }
-        List<String> memberNames = memberSet.take(3).toList();
-        while (memberNames.length < 3) {
-          memberNames.add('成员${memberNames.length + 1}');
-        }
+        // 统一固定核心成员：红章、坤如、姨
+        List<String> memberNames = ['红章', '坤如', '姨'];
 
         List<Map<String, dynamic>> rows = [];
         for (var r in records) {
@@ -243,13 +236,14 @@ class CloudflareSyncService {
           String aIt = '';
 
           for (var exp in r.expenses) {
-            if (exp.personName == memberNames[0]) {
+            if (['红章', '爸', '父', '老爸'].contains(exp.personName)) {
               fAm += exp.amount;
               fIt = exp.category;
-            } else if (memberNames.length > 1 && exp.personName == memberNames[1]) {
+            } else if (['坤如', '坤茹', '妈', '母', '老妈', '我'].contains(exp.personName)) {
               mAm += exp.amount;
               mIt = exp.category;
             } else {
+              // 其他所有人均归入 姨
               aAm += exp.amount;
               aIt = exp.category;
             }
